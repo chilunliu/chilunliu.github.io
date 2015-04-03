@@ -9,20 +9,20 @@
 
 div.content {
 			margin: auto;
-			width: 960px;
+			/*width: 960px;*/
 		}
 		div.broken,
 		div.missing {
 			margin: auto;
 			position: relative;
-			top: 50%;
-			width: 193px;
+			/*top: 50%;
+			width: 193px;*/
 		}
 		div.broken a,
 		div.missing a {
-			height: 63px;
+			/*height: 63px;
+			top: -31px;*/
 			position: relative;
-			top: -31px;
 		}
 		div.broken img,
 		div.missing img {
