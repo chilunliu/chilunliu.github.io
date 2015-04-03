@@ -488,7 +488,7 @@
 			color: #6b88e6;
 		}
 
-		/*.icon.major {
+		.icon.major {
 			text-decoration: none;
 			color: #555;
 			cursor: default;
@@ -1112,9 +1112,9 @@
 			border-color: #ffffff;
 		}
 
-		/*#header .icon.major {
+		#header .icon.major {
 			color: #ffffff;
-		}*/
+		}
 
 		#header h1 {
 			margin: 0;
