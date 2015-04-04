@@ -146,23 +146,81 @@
 
 		<!-- Four -->
 			<section id="four" class="main style2 special">
-				<div class="container">
-					<header class="major">
-						<h2>Contact me?</h2>
-					</header>
-					<!--<p>Send me an email.</p>-->
-					
-					<ul class="email-icon">
-						<li><span class="icon style1 major fa-envelope"></span></li>
-					</ul>
-					
-					<ul class="actions uniform">
-						<li><a href="mailto:chilun@chilun-liu.com" class="button special">Email</a></li>
-						<!--<li><a href="#" class="button special">Learn More</a></li>-->
-					</ul>
-				</div>
+				
+				
+				<section id="contact"> <!-- HTML5 section tag for the contact 'section' -->
+
+
+					<div class="container">
+						<header class="major">
+							<h2>Contact me?</h2>
+						</header>
+						<!--<p>Send me an email.</p>-->
+						
+						<ul class="email-icon">
+							<li><span class="icon style1 major fa-envelope"></span></li>
+
+							
+							<form action="contact.php" method="post" id="contactform" >
+			
+								<p><label for="Name">Name *</label></p>
+									<input type="text" id=name name="name" placeholder="First and last name" required tabindex="1" />
+							
+								<p><label for="Email">Email address *</label></p>
+									<input type="text" id=email name="email" placeholder="example@domain.com" required tabindex="2" />
+
+									<p><label for="Comments">Comments *</label></p>
+										<textarea name="comment" id="comment" tabindex="3"></textarea>
+							
+							<input name="submit" type="submit" id="submit" tabindex="4" value="Send Message" />
+							</form>
+						
+						
+						</ul>
+						
+						<ul class="actions uniform">
+							<li><a href="mailto:chilun@chilun-liu.com" class="button special">Email</a></li>
+							<!--<li><a href="#" class="button special">Learn More</a></li>-->
+						</ul>
+					</div>
+				</section>
 			</section>
 
+			
+			<section id="contact"> <!-- HTML5 section tag for the contact 'section' -->
+
+    		<h2 class="contact">Contact Me</h2>
+
+    		<p>Send me an email!</p>
+
+			<!-- Add code to process sending of email: http://www.templatemonster.com/help/how-create-contact-form-html.html-->
+    		<!--<form id="contactform">-->
+			<form action="contact.php" method="post" id="contactform" >
+			
+    			<p><label for="name">Name</label></p>
+    			<input type="text" id=name name="name" placeholder="First and last name" required tabindex="1" />
+				
+    			<p><label for="email">Email</label></p>
+    			<input type="text" id=email name="email" placeholder="example@domain.com" required tabindex="2" />
+
+    			<p><label for="comment">Your Message</label></p>
+				<textarea name="comment" id="comment" tabindex="3"></textarea>
+				
+				<input name="submit" type="submit" id="submit" tabindex="4" value="Send Message" />
+				
+    		</form>
+
+
+    	</section>
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		<!-- Five -->
 		<!--
 			<section id="five" class="main style1">
