@@ -7,13 +7,6 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-#contact { margin-bottom: 0px; }
-
-input[type="text"] { width: 400px; }
-/* textarea { width: 750px; height: 275px; }  - comment entry box size*/
-textarea { width: 750px; height: 150px; }
-
-
 /* Basic */
 
 	body {
@@ -912,6 +905,7 @@ textarea { width: 750px; height: 150px; }
 		text-indent: 0.125em;
 		text-transform: uppercase;
 		white-space: nowrap;
+		top: 2.75em;
 	}
 
 		input[type="submit"]:hover,
