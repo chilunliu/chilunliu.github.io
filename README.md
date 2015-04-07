@@ -1,17 +1,9 @@
-Photon theme by HTML5 UP (AJ n33.co @n33co dribbble.com/n33)
-html5up.net | @n33co
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+# Chilun-liu.com
 
-Personal website.
+My one-page personal website based on an existing website template hosted on html5up.com.
 
-Credits:
+http://www.chilun-liu.com
 
-	Icons:
-		Font Awesome (fortawesome.github.com/Font-Awesome)
+## License
 
-	Other:
-		jQuery (jquery.com)
-		html5shiv.js (@afarkas @jdalton @jon_neal @rem)
-		CSS3 Pie (css3pie.com)
-		background-size polyfill (github.com/louisremi)
-		Skel (getskel.com)
+Code and documentation Chilun-liu.com, Code released under the MIT license. Docs released under Creative Commons.
