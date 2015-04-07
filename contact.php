@@ -3,7 +3,7 @@ $field_name = $_POST['name'];
 $field_email = $_POST['email'];
 $field_message = $_POST['comment'];
 
-$mail_to = 'chilun@chilun-liu.com';
+$mail_to = 'chilunliu@gmail.com';
 $subject = 'Message from a site visitor '.$field_name;
 
 $body_message = 'Name *'.$field_name."\n";
@@ -24,7 +24,7 @@ if ($mail_status) { ?>
 }
 else { ?>
 	<script language="javascript" type="text/javascript">
-		alert('Message failed. Please, send an email to chilun@chilun-liu.com');
+		alert('Message failed. Please, send an email to chilunliu@gmail.com');
 		window.location = 'index.html';
 	</script>
 <?php
