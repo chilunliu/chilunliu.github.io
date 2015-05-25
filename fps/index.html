@@ -51,6 +51,7 @@
         this.height = height;
       }
       
+	  //init player properties for use
       function Player(x, y, direction) {
         this.x = x;
         this.y = y;
@@ -63,10 +64,11 @@
         this.direction = (this.direction + angle + CIRCLE) % (CIRCLE);
       };
 
+	  //stop player walking through the wall
       Player.prototype.walk = function(distance, map) {
         var dx = Math.cos(this.direction) * distance;
         var dy = Math.sin(this.direction) * distance;
-        if (map.get(this.x + dx, this.y) <= 0) this.x += dx;
+        if (map.get(this.x + dx, this.y) <= 0) this.x += dx; //check x and y, player slides along it
         if (map.get(this.x, this.y + dy) <= 0) this.y += dy;
         this.paces += distance;
       };
@@ -78,11 +80,12 @@
         if (controls.backward) this.walk(-3 * seconds, map);
       };
 
+	  //2d array, 0 means no wall, 1 means wall
       function Map(size) {
         this.size = size;
         this.wallGrid = new Uint8Array(size * size);
-        this.skybox = new Bitmap('assets/deathvalley_panorama.jpg', 2000, 750);
-        this.wallTexture = new Bitmap('assets/wall_texture.jpg', 1024, 1024);
+        this.skybox = new Bitmap('assets/sky.jpg', 4800, 1500);
+        this.wallTexture = new Bitmap('assets/wall_texture_3.jpg', 1024, 1024);
         this.light = 0;
       }
 
@@ -108,9 +111,9 @@
         return ray({ x: point.x, y: point.y, height: 0, distance: 0 });
 
         function ray(origin) {
-          var stepX = step(sin, cos, origin.x, origin.y);
-          var stepY = step(cos, sin, origin.y, origin.x, true);
-          var nextStep = stepX.length2 < stepY.length2
+          var stepX = step(sin, cos, origin.x, origin.y); //nearest x gridline
+          var stepY = step(cos, sin, origin.y, origin.x, true); //nearest y gridline
+          var nextStep = stepX.length2 < stepY.length2 //do until the end of the array has been reached
             ? inspect(stepX, 1, 0, origin.distance, stepX.y)
             : inspect(stepY, 0, 1, origin.distance, stepY.x);
 
@@ -120,8 +123,8 @@
 
         function step(rise, run, x, y, inverted) {
           if (run === 0) return noWall;
-          var dx = run > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
-          var dy = dx * (rise / run);
+          var dx = run > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x; //check for whole numbers in grid intersections
+          var dy = dx * (rise / run); //calculate slope (rise/run)
           return {
             x: inverted ? y + dy : x + dx,
             y: inverted ? x + dx : y + dy,
@@ -159,9 +162,9 @@
       }
 
       Camera.prototype.render = function(player, map) {
-        this.drawSky(player.direction, map.skybox, map.light);
-        this.drawColumns(player, map);
-        this.drawWeapon(player.weapon, player.paces);
+        this.drawSky(player.direction, map.skybox, map.light); //add texture to the background
+        this.drawColumns(player, map); //draw walls
+        this.drawWeapon(player.weapon, player.paces); //add a weapon to the foreground
       };
 
       Camera.prototype.drawSky = function(direction, sky, ambient) {
@@ -180,7 +183,7 @@
         }
         this.ctx.restore();
       };
-
+	  //casting the ray
       Camera.prototype.drawColumns = function(player, map) {
         this.ctx.save();
         for (var column = 0; column < this.resolution; column++) {
@@ -212,29 +215,30 @@
         for (var s = ray.length - 1; s >= 0; s--) {
           var step = ray[s];
           var rainDrops = Math.pow(Math.random(), 3) * s;
-          var rain = (rainDrops > 0) && this.project(0.1, angle, step.distance);
+          var rain = (rainDrops > 0) && this.project(0.1, angle, step.distance); //
 
           if (s === hit) {
-            var textureX = Math.floor(texture.width * step.offset);
+            var textureX = Math.floor(texture.width * step.offset); //what's left of intersection (i.e. x=10,y=8.2, remaining is 0.2 = 20% from left edge of wall (8) and 80% from right-edge (9), 0.2*texture width gives the x position of texture image)
             var wall = this.project(step.height, angle, step.distance);
 
             ctx.globalAlpha = 1;
             ctx.drawImage(texture.image, textureX, 0, 1, texture.height, left, wall.top, width, wall.height);
             
-            ctx.fillStyle = '#000000';
-            ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - map.light, 0);
-            ctx.fillRect(left, wall.top, width, wall.height);
+            ctx.fillStyle = '#000000'; //wall opacity
+            ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - map.light, 0); //opacity determined by distance and its position (north, south, east, west)
+            ctx.fillRect(left, wall.top, width, wall.height); //map.light - simulates real lighting - jumps from 2 to 0
           }
           
           ctx.fillStyle = '#ffffff';
           ctx.globalAlpha = 0.15;
-          while (--rainDrops > 0) ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
+          while (--rainDrops > 0) ctx.fillRect(left, Math.random() * rain.top, 1, rain.height); //draw thin walls (1 px wide) in random places on the screen
         }
       };
 
+	  //render walls in the ray's path
       Camera.prototype.project = function(height, angle, distance) {
         var z = distance * Math.cos(angle);
-        var wallHeight = this.height * height / z;
+        var wallHeight = this.height * height / z; //height of wall = max height divide by z. Further the wall, smaller it is drawn
         var bottom = this.height / 2 * (1 + 1 / z);
         return {
           top: bottom - wallHeight,
@@ -268,11 +272,11 @@
       var loop = new GameLoop();
 
       map.randomize();
-      
+      //game loop
       loop.start(function frame(seconds) {
         map.update(seconds);
-        player.update(controls.states, map, seconds);
-        camera.render(player, map);
+        player.update(controls.states, map, seconds); //update player controls per frame
+        camera.render(player, map); //render the player and the walls
       });
 
     </script>
