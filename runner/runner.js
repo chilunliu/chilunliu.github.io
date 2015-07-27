@@ -29,6 +29,8 @@ Q.Sprite.extend("Player",{
 
     this.add("2d, animation");
   },
+  
+  //http://www.html5quintus.com/quintus/examples/platformer_full/
 
   step: function(dt) {
     this.p.vx += (this.p.speed - this.p.vx)/4;
