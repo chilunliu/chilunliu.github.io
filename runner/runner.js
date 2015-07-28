@@ -105,7 +105,7 @@ Q.Sprite.extend("Box",{
   resetLevel: function() {
     Q.stageScene("level1");
     this.p.lives = 1;
-    this.animate({opacity: 1});
+    this.p.animate({opacity: 1});
     Q.stageScene('hud', 3, this.p);
   },
   
