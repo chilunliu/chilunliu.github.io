@@ -116,7 +116,7 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
-	this.p.lives -= 1;
+	this.p.lives = 0;
 	Q.stageScene('hud', 3, this.p);
     if (this.p.lives == 0) {
       this.resetLevel();
