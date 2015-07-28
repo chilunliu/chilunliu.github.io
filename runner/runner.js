@@ -22,6 +22,7 @@ Q.Sprite.extend("Player",{
       standingPoints: [ [ -16, 44], [ -23, 35 ], [-23,-48], [23,-48], [23, 35 ], [ 16, 44 ]],
       duckingPoints : [ [ -16, 44], [ -23, 35 ], [-23,-10], [23,-10], [23, 35 ], [ 16, 44 ]],
       speed: 500,
+	  lives: 1,
       jump: -700
     });
 
@@ -101,6 +102,13 @@ Q.Sprite.extend("Box",{
 
   },
 
+  resetLevel: function() {
+    Q.stageScene("level1");
+    this.p.lives = 1;
+    this.animate({opacity: 1});
+    Q.stageScene('hud', 3, this.p);
+  },
+  
   hit: function() {
     this.p.type = 0;
     this.p.collisionMask = Q.SPRITE_NONE;
@@ -108,8 +116,12 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
+	this.p.lives -= 1;
+	Q.stageScene('hud', 3, this.p);
+    if (this.p.lives == 0) {
+      this.resetLevel();
+    }
   }
-  
 
 });
 
@@ -150,6 +162,19 @@ Q.scene("level1",function(stage) {
   stage.add("viewport");
 
 });
+
+Q.scene('hud',function(stage) {
+  var container = stage.insert(new Q.UI.Container({
+    x: 50, y: 0
+  }));
+
+  var label = container.insert(new Q.UI.Text({x:200, y: 20,
+    label: "Lives: " + stage.options.lives, color: "black" }));
+
+  container.fit(20);
+});
+
+
   
 Q.load("player.json, player.png, background-wall.png, background-floor.png, crates.png, crates.json", function() {
     Q.compileSheets("player.png","player.json");
@@ -161,7 +186,7 @@ Q.load("player.json, player.png, background-wall.png, background-floor.png, crat
       duck_right: { frames: [15], rate: 1/10, flip: false },
     });
     Q.stageScene("level1");
-  
+	Q.stageScene('hud', 3, Q('Player').first().p);
 });
 
 
