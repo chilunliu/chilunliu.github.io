@@ -46,6 +46,8 @@ Q.Sprite.extend("Player",{
 
     if(Q.inputs['up'] && this.p.landed > 0) {
       this.p.vy = this.p.jump;
+	  //this.p.score += 20;
+	  //Q.stageScene('hud', 3, this.p);
     } 
 
     this.p.points = this.p.standingPoints;
@@ -53,15 +55,15 @@ Q.Sprite.extend("Player",{
       if(Q.inputs['down']) { 
         this.play("duck_right");
         this.p.points = this.p.duckingPoints;
-		this.p.score += 20;
-		Q.stageScene('hud', 3, this.p);
+		//this.p.score += 20;
+		//Q.stageScene('hud', 3, this.p);
       } else {
         this.play("walk_right");
       }
     } else {
       this.play("jump_right");
-	  this.p.score += 20;
-	  Q.stageScene('hud', 3, this.p);
+	  //this.p.score += 20;
+	  //Q.stageScene('hud', 3, this.p);
     }
 
     this.stage.viewport.centerOn(this.p.x + 300, 400 );
