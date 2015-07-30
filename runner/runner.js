@@ -22,7 +22,7 @@ Q.Sprite.extend("Player",{
       standingPoints: [ [ -16, 44], [ -23, 35 ], [-23,-48], [23,-48], [23, 35 ], [ 16, 44 ]],
       duckingPoints : [ [ -16, 44], [ -23, 35 ], [-23,-10], [23,-10], [23, 35 ], [ 16, 44 ]],
       speed: 500,
-	  lives: 1,
+	  score: 0,
       jump: -700
     });
 
@@ -53,11 +53,15 @@ Q.Sprite.extend("Player",{
       if(Q.inputs['down']) { 
         this.play("duck_right");
         this.p.points = this.p.duckingPoints;
+		this.p.score += 20;
+		Q.stageScene('hud', 3, this.p);
       } else {
         this.play("walk_right");
       }
     } else {
       this.play("jump_right");
+	  this.p.score += 20;
+	  Q.stageScene('hud', 3, this.p);
     }
 
     this.stage.viewport.centerOn(this.p.x + 300, 400 );
@@ -104,7 +108,7 @@ Q.Sprite.extend("Box",{
 
   resetLevel: function() {
     Q.stageScene("level1");
-    this.p.lives = 1;
+    this.p.score = 0;
     //this.animate({opacity: 1});
     Q.stageScene('hud', 3, this.p);
   },
@@ -116,12 +120,17 @@ Q.Sprite.extend("Box",{
     this.p.ay = 400;
     this.p.vy = -300;
     this.p.opacity = 0.5;
-	this.p.lives = 0;
+	this.p.score = 0;
+	
+	/*
 	Q.stageScene('hud', 3, this.p);
     if (this.p.lives == 0) {
       this.resetLevel();
     }
+	*/
+	this.resetLevel();
   }
+  
 
 });
 
@@ -168,8 +177,8 @@ Q.scene('hud',function(stage) {
     x: 50, y: 0
   }));
 
-  var label = container.insert(new Q.UI.Text({x:200, y: 20,
-    label: "Lives: " + stage.options.lives, color: "black" }));
+  var label = container.insert(new Q.UI.Text({x:100, y: 20,
+    label: "Score: " + stage.options.score, color: "black" }));
 
   container.fit(20);
 });
