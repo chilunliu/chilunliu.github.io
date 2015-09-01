@@ -174,18 +174,11 @@ Q.scene("level1",function(stage) {
 });
 
 
-
-
-
-
 Q.scene('hud',function(stage) {
   var container = stage.insert(new Q.UI.Container({
     x: 50, y: 0
-  });
-  
-  Q.state.on("change.score",this,"score");
-  ),
-  
+  }));
+
   var label = container.insert(new Q.UI.Text({x:100, y: 20,
     label: "Score: " + stage.options.score, color: "green" }));
 
