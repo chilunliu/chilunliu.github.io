@@ -124,12 +124,12 @@ Q.Sprite.extend("Box",{
     this.p.opacity = 0.5;
 	this.p.score = 0;
 	
-	/*
+	
 	Q.stageScene('hud', 3, this.p);
     if (this.p.lives == 0) {
       this.resetLevel();
     }
-	*/
+	
 	this.resetLevel();
   }
   
@@ -156,7 +156,6 @@ Q.GameObject.extend("BoxThrower",{
 
 });
 
-
 Q.scene("level1",function(stage) {
 
   stage.insert(new Q.Repeater({ asset: "background-wall.png",
@@ -174,19 +173,27 @@ Q.scene("level1",function(stage) {
 
 });
 
-/*
+
+
+
+
+
 Q.scene('hud',function(stage) {
   var container = stage.insert(new Q.UI.Container({
     x: 50, y: 0
-  }));
-
+  });
+  
+  Q.state.on("change.score",this,"score");
+  ),
+  
   var label = container.insert(new Q.UI.Text({x:100, y: 20,
     label: "Score: " + stage.options.score, color: "green" }));
 
   container.fit(20);
 });
-*/
 
+
+/*
 Q.UI.Text.extend("Score",{ 
   init: function(p) {
     this._super({
@@ -202,9 +209,7 @@ Q.UI.Text.extend("Score",{
     this.p.label = "score: " + score, color: "green";
   }
 });
-
-
-
+*/
 
   
 Q.load("player.json, player.png, background-wall.png, background-floor.png, crates.png, crates.json", function() {
@@ -217,7 +222,7 @@ Q.load("player.json, player.png, background-wall.png, background-floor.png, crat
       duck_right: { frames: [15], rate: 1/10, flip: false },
     });
     Q.stageScene("level1");
-	//Q.stageScene('hud', 3, Q('Player').first().p);
+	Q.stageScene('hud', 3, Q('Player').first().p);
 });
 
 
